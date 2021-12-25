@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link href="./bootstrap.css" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+    <title>Trending</title>
+</head>
+
+<body class="bg-dark">
+    <header>
+        <nav class="nav-bar navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+            <div class="container-fluid">
+                <div class="d-flex">
+                <div class="nav-logo">
+                    <a href="#">
+                        <img class="me-4" src="https://yts.mx/assets/images/website/logo-YTS.svg" alt="logo">
+                    </a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div>
+                    <span class="heading mx-5 heading hidden-sm hidden-xs header-slogan font-style ">HD movies at
+                        the
+                        smallest file size.</span>
+                </div>
+                </div>
+                <div  class="d-flex">
+                <form method="GET" action="https://yts.mx/search-movies" accept-charset="UTF-8" id="quick-search"
+                    name="quick-search">
+                    <div id="quick-search-container">
+                        <img class="img-fluid" id="search"  src="./magnifier.svg">
+                        <input id="quick-search-input" name="query" autocomplete="off" type="text"
+                            placeholder="Quick search">
+                        <div style="background-position: 0px 0px;"></div>
+                    </div>
+                </form>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-5 mb-lg-0">
+
+                        <li class="ms-4 nav-item">
+                            <a class="nav-link link" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-green link" href="./4K.html"><b>4K</b></a>
+                        </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active link" href="./trending.html">Trending</a>
+                        </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link" href="./browse-movies.html">Browse Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <p class="nav-link link" id="login-active">Login</p>
+                        </li>
+                        <li class="nav-item">
+                            <p class="nav-link link" id="register-active">Register</p>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="result bg-dark" id="result">
+    </div>
+
+    <div class="container">
+        <h2 class="mb-4"><b>24h YIFY Trending Movies</b></h2>
+        <div class="row px-5" id="trending">
+
+        </div>
+    </div>
+
+    </section>
+    <footer>
+        <div class="container-fluid content-dark">
+            <div class="row">
+                <div class="col-xs-20">
+                    <ul class="text-center text-white coontent-dark mt-5 ">
+                        <li>YTS © 2011 - 2021</li>
+                        <li>-</li>
+                        <li><a href="#">Blog</a></li>
+                        <li>-</li>
+                        <li><a href="#">DMCA</a></li>
+                        <li>-</li>
+                        <li><a href="#">API</a></li>
+                        <li>-</li>
+                        <li><a href="#">RSS</a></li>
+                        <li>-</li>
+                        <li><a href="#">Contact</a></li>
+                        <li>-</li>
+                        <li><a href="#">Browse Movies</a></li>
+                        <li>-</li>
+                        <li><a href="#">Requests</a></li>
+                        <li>-</li>
+                        <li><a href="#">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-20">
+                    <ul class="text-center">
+                        <li style="font-size: .80em">By using this site you agree to and accept our <a href="#">User
+                                Agreement</a>, which can be read <a href="#">here</a>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="./jquery.js"></script>
+    <script src="bootstrap.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const api = "https://yts.mx/api/v2/"
+            function contactApi(ep, id) {
+                $.get(api + ep, function (response) {
+                    var movies = response.data.movies;
+                    movies.forEach(movie => {
+                        var genre = '';
+                        for(var i = 0; i< movie.genres.length; i++){
+                            genre += `<h4 class="text-white">${movie.genres[i]}</h4>`;
+                            if(i==2){
+                                break;
+                            }
+                        }
+                        $(`${id}`).append(`
+                    <div class="col-sm-6 col-md-2 col-12 mx-3">
+                    <div class="movie">
+                        <div class=>
+                            <img class="border border-4 img-fluid"
+                                src="${movie.medium_cover_image}" alt="pic3">
+                        </div>
+                        <div class="details">
+                            <img class="w-25 mb-2" src="./star.svg" alt="star">
+                            <h4 class="text-white">${movie.rating} / 10</h4>
+                            ${genre}
+                            <a href="./detail-movies.html?id=${movie.id}"><span class="text-white btn btn-success">View Details</span></a>
+                        </div>
+                    </div>
+                    <a<p class="text-white fs-6">${movie.title}</p>
+                    <p class="text-white text-light fs-6">${movie.year}</p>
+                </div>
+                    `)
+                    });
+                });
+
+            }
+
+            contactApi("list_movies.json?sort_by=download_count&sort_by=year&sort_by=like_count&limit=15", "#trending");
+
+            $("#search").click(function () {
+                var query = $("#quick-search-input").val();
+                $.get("https://yts.mx/api/v2/list_movies.json?query_term=" + query, function (response) {
+                    $("#result").append(`
+                <div>
+                        <ul>
+                            <li><div class="px-1 py-1"><a class="text-white" href="./detail-movies.html?id=${response.data.movies[0].id}"><img class="mb-2" src="${response.data.movies[0].small_cover_image}">
+                                <h6>${response.data.movies[0].title}</h6></div></li>
+                                <hr>
+                                <li><div class="px-1 py-1"><a class="text-white" href="./detail-movies.html?id=${response.data.movies[1].id}"><img class="mb-2" src="${response.data.movies[1].small_cover_image}">
+                                <h6>${response.data.movies[1].title}</h6></a></div></li>
+                                <hr>
+                                <li><div><a class="text-white" href="./detail-movies.html?id=${response.data.movies[2].id}"><img class="mb-2" src="${response.data.movies[2].small_cover_image}">
+                                <h6>${response.data.movies[2].title}</h6></a></div></li>
+                                <hr>
+                                <li><div><a class="text-white"  href="./detail-movies.html?id=${response.data.movies[3].id}"><img class="mb-2" src="${response.data.movies[3].small_cover_image}">
+                                <h6>${response.data.movies[3].title}</h6></a></div></li>
+                                <hr>
+                        </ul>
+                </div>
+                `)
+                })
+
+            })
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

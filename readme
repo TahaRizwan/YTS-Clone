@@ -1,0 +1,91 @@
+This is a clone of YTS.mx website coded by Taha Rizwan.
+This code contains HTML5,CSS3,jquery and Bootstrap.
+There is surplus code in this file.  
+
+
+<section>
+        <div class="container content-background">
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-green">
+                        <b>370</b>
+                        <span style="font-size:90%;">
+                            <span style="color:#00BBCC;">2160 4K</span>
+                            YIFY Movies Found (by <i>latest</i>)
+                        </span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container bg-light py-4 px-4" id="login" style="display: none;">
+            <div class="row">
+                <div class="login">
+                    <div class="col d-flex justify-content-center align-items-center flex-column border px-4 py-4">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Password" aria-label="Password"
+                                aria-describedby="basic-addon2">
+                        </div>
+                        <div>
+                            <button class=" btn btn-success">Login</button>
+                            <button class=" btn btn-danger " id="login-cancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container bg-light py-4 px-4" id="register" style="display: none;">
+            <div class="row">
+                <div class="register">
+                    <div class="col d-flex justify-content-center align-items-center flex-column border px-4 py-4">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email" aria-label="Email"
+                                aria-describedby="basic-addon2">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="Password" aria-label="Password"
+                                aria-describedby="basic-addon3">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="Confirm Password"
+                                aria-label="Confirm Password" aria-describedby="basic-addon4">
+                        </div>
+                        <div>
+                            <button class=" btn btn-success">Register</button>
+                            <button class=" btn btn-danger " id="register-cancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    $("#login-cancel").click(function () {
+        $("#login").css("display", "none");
+    })
+
+    $("#login-active").click(function () {
+        $("#register").css("display", "none")
+        $("#login").css("display", "inline-block");
+    })
+
+    $("#register-cancel").click(function () {
+        $("#register").css("display", "none");
+    })
+
+    $("#register-active").click(function () {
+        $("#login").css("display", "none");
+        $("#register").css("display", "inline-block");
+    })

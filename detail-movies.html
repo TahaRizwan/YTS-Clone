@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./bootstrap.css">
+    <title>Movie-Details</title>
+</head>
+
+<body class="bg-dark">
+    <header>
+        <nav class="nav-bar navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+            <div class="container-fluid">
+                <div class="d-flex">
+                    <div class="nav-logo">
+                        <a href="#">
+                            <img class="me-4" src="https://yts.mx/assets/images/website/logo-YTS.svg" alt="logo">
+                        </a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div>
+                        <span class="heading mx-5 heading hidden-sm hidden-xs header-slogan font-style ">HD movies at
+                            the
+                            smallest file size.</span>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <form method="GET" action="https://yts.mx/search-movies" accept-charset="UTF-8" id="quick-search"
+                        name="quick-search">
+                        <div id="quick-search-container">
+                            <img class="img-fluid" id="search"  src="./magnifier.svg">
+                            <input id="quick-search-input" name="query" autocomplete="off" type="text"
+                                placeholder="Quick search">
+                            <div style="background-position: 0px 0px;"></div>
+                        </div>
+                    </form>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-5 mb-lg-0">
+
+                            <li class="ms-4 nav-item">
+                                <a class="nav-link link" href="./index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-green link" href="./4K.html"><b>4K</b></a>
+                            </li>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link link" href="./trending.html">Trending</a>
+                            </li>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link link" href="./browse-movies.html">Browse Movies</a>
+                            </li>
+                            <li class="nav-item">
+                                <p class="nav-link link" id="login-active">Login</p>
+                            </li>
+                            <li class="nav-item">
+                                <p class="nav-link link" id="register-active">Register</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="result bg-dark" id="result">
+    </div>
+
+    <section>
+        <div class="container ">
+            <div class="row px-5">
+                <div class="col-12"></div>
+                <div id="movie-details">
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-12" id="detail">
+
+                </div>
+                <div class="col-12">
+                    <b>
+                        <h2 class="text-start text-white mt-5 mb-1">Director</h2>
+                    </b>
+                    <img class="avatar" src="https://img.yts.mx/assets/images/actors/thumb/nm0506613.jpg">
+                    <div class="text-start heading ">&nbsp;&nbsp; Shawn Levy</div>
+
+                    <b>
+                        <h2 class="text-start text-white mt-5 mb-1 ">Cast</h2>
+                    </b>
+                    <img class="avatar" src="https://img.yts.mx/assets/images/actors/thumb/nm0262635.jpg">
+                    <div class="text-start heading mb-4">&nbsp;&nbsp; Chris Evans<span class="text-start text-white ">
+                            as Christ Evans</span></div>
+                    <hr />
+                    <img class="avatar" src="https://img.yts.mx/assets/images/actors/thumb/nm0425005.jpg">
+                    <div class="text-start heading mb-4">&nbsp;&nbsp; Dwayne Johnson<span
+                            class="text-start text-white "> as Bank Robber #2</span></div>
+                    <hr />
+                    <img class="avatar" src="https://img.yts.mx/assets/images/actors/thumb/nm0169806.jpg">
+                    <div class="text-start heading mb-4">&nbsp;&nbsp; Taika Waititi<span class="text-start text-white ">
+                            as Antwan</span></div>
+                    <hr />
+                    <img class="avatar" src="https://img.yts.mx/assets/images/actors/thumb/nm0005351.jpg">
+                    <div class="text-start heading mb-4">&nbsp;&nbsp; Ryan Reynolds<span class="text-start text-white ">
+                            as Guy</span></div>
+
+
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    </section>
+
+    <script src="./bootstrap.js"></script>
+    <script src="./jquery.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            const queryString = window.location.search;
+            console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            const id = urlParams.get('id')
+            $.get("https://yts.mx/api/v2/movie_details.json?movie_id=" + id, function (response) {
+                var a = (response.data.movie);
+                var genre = "";
+                for (var i = 0; i < a.genres.length; i++) {
+                    genre += `${a.genres[i]}`;
+                    if (i < (a.genres.length - 1)) {
+                        genre += " / ";
+                    }
+                }
+                var torrent = "";
+                var downloads = "";
+                for (var i = 0; i < a.torrents.length; i++) {
+                    torrent += `<a class="a-tag " href="${a.torrents[i].url}" target="_blank"<h6 class="text-white text-start tags"><i>${a.torrents[i].quality}.${a.torrents[i].type}</i></h6></a>`;
+
+                }
+                $("#movie-details").append(`
+                <br/>
+                <div class=" justify-content-start">
+                    <div class="row d-flex flex-row">
+                        <div class="col-12 col-sm-4">    
+                        <div id="movie-poster">
+                            <img class="img-fluid border border-4 rounded-1" src="${a.medium_cover_image}" alt="pic3">    
+                            </div>
+                            </div>
+                        <div class="col-12 col-sm-4">
+                            <div id="movie-info col-xs-20">
+                            <h1 class="text-white mb-5"><b>${a.title}</b></h1>
+                            <h2 class="text-white text-start"><b>${a.year}</b></h2>
+                            <h2 class="text-white text-start"><b>${genre}</b></h2>
+                            <h6 class="text-white text-start mt-5 "><i>Available in</i></h6>
+                            ${torrent}
+                            <br />
+                            
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 hidden-xs hidden-ms ">
+                        <br/>
+                        <h4 class="text-white mx-5">Similar Movie</h4>
+                        <div id="similar-movies">
+                        </div>
+                    </div>
+                </div>
+                `)
+
+            });
+
+            $.get("https://yts.mx/api/v2/movie_suggestions.json?movie_id=" + id, function (response) {
+                var a = response.data.movies;
+                a.forEach(movie => {
+                    $("#similar-movies").append(`
+                        <a href="${movie.url}" title="${movie.title}"><img class="image-fluid border border-1 rounded-1 mx-5 mt-2 image2" src="${movie.small_cover_image}" alt="Fun and Fancy Free (1947) download"></a>                    
+                    `)
+
+                });
+
+            });
+
+            $.get("https://yts.mx/api/v2/movie_details.json?movie_id=" + id, function (response) {
+                var a = (response.data.movie);
+                $("#detail").append(`
+            <h2 class="text-start text-white mt-5 mt-5 ms-5">Synopsis</h2>
+
+                    <p class="text-start heading ms-5 mt-4">${a.description_intro}</p>
+
+                    <b>
+                        <p class="text-start text-green ms-5">Parental Guide</p>
+                    </b>
+                    <i>
+                        <p class="text-start heading ms-5">
+                            Uploaded By: FREEMAN
+                             <br>
+                             ${a.torrents[0].date_uploaded}
+                        </p>
+                    </i>
+                    `)
+
+            });
+
+            $("#search").click(function () {
+                var query = $("#quick-search-input").val();
+                $.get("https://yts.mx/api/v2/list_movies.json?query_term=" + query, function (response) {
+                    $("#result").append(`
+                <div>
+                        <ul>
+                            <li><div class="px-1 py-1"><a class="text-white" href="./detail-movies.html?id=${response.data.movies[0].id}"><img class="mb-2" src="${response.data.movies[0].small_cover_image}">
+                                <h6>${response.data.movies[0].title}</h6></div></li>
+                                <hr>
+                                <li><div class="px-1 py-1"><a class="text-white" href="./detail-movies.html?id=${response.data.movies[1].id}"><img class="mb-2" src="${response.data.movies[1].small_cover_image}">
+                                <h6>${response.data.movies[1].title}</h6></a></div></li>
+                                <hr>
+                                <li><div><a class="text-white" href="./detail-movies.html?id=${response.data.movies[2].id}"><img class="mb-2" src="${response.data.movies[2].small_cover_image}">
+                                <h6>${response.data.movies[2].title}</h6></a></div></li>
+                                <hr>
+                                <li><div><a class="text-white"  href="./detail-movies.html?id=${response.data.movies[3].id}"><img class="mb-2" src="${response.data.movies[3].small_cover_image}">
+                                <h6>${response.data.movies[3].title}</h6></a></div></li>
+                                <hr>
+                        </ul>
+                </div>
+                `)
+                })
+
+            })
+
+
+
+        });
+    </script>
+</body>
+
+</html>
